@@ -25,6 +25,19 @@ class SessionRepository {
         try saveContext()
         }
     
+    /// Read all Sessions from database.
+    func getAllSessions() throws -> [Session] {
+            let fetchRequest: NSFetchRequest<Session> = Session.fetchRequest()
+            
+            do {
+                let sessions = try context.fetch(fetchRequest)
+                return sessions
+            } catch {
+                // TODO: Check if there is a better way to hadle errors here.
+                throw error
+            }
+        }
+    
     /// Save context changes.
     private func saveContext() throws {
         if context.hasChanges {
